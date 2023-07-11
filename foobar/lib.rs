@@ -4,10 +4,6 @@
 mod foobar {
     use ink::prelude::string::String;
     use ink::prelude::vec::Vec;
-
-    /// Defines the storage of your contract.
-    /// Add new fields to the below struct in order
-    /// to add new static storage fields to your contract.
     
     pub struct MyStruct {
         /// Stores a single `bool` value on the storage.
@@ -78,6 +74,17 @@ mod foobar {
         /// A message that can be called on instantiated contracts.
         /// This one flips the value of the stored `bool` from `true`
         /// to `false` and vice versa.
+        /// 
+        /// Selector calculation
+        /// 
+        /// 1. Grab the name of the message or constructor
+        ///  
+        /// 2. Compute the BLACKE2 hash of the name
+        /// 
+        /// 3. Take the first 4 bytes of the hash as the selector
+        /// 
+        /// BLACKE2(flip) = 0x633aa551........................
+        /// 
         #[ink(message)]
         pub fn flip(&mut self) {
             self.value = !self.value;
